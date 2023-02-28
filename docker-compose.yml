@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  webapp:
+  recipe-webapp:
     image: ghcr.io/caimito/recipe-webapp:${TAG}
     restart: unless-stopped
     environment:

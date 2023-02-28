@@ -57,7 +57,7 @@ jobs:
 
       - name: Push Docker Image
         if: success()
-        run: docker push ${{ steps.prep.outputs.docker-image-tag }}
+        run: docker push --all-tags ${{ steps.prep.outputs.docker-image-tag }}
 
   deploy-staging:
     if: ${{ success() && github.ref == 'refs/heads/main' }}

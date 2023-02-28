@@ -1,5 +1,8 @@
 <template>
-  <h1>Recipe App</h1>
+  <div>
+    <h1>Recipe App</h1>
+    <p>A future place for something awesome.</p>
+  </div>
 </template>
 
 <script>

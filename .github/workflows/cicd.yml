@@ -73,9 +73,7 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ vars.SSH_HOST_STAGING }} >> ~/.ssh/known_hosts
       - name: SCP docker compose
-        run: |
-          scp docker-compose.yml ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }}:recipe-docker-compose.yml
-          scp .env ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }}:.env
+        run: scp docker-compose.yml ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }}:recipe-docker-compose.yml
       - name: Docker login
         run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} docker login https://ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
       - name: Pull containers

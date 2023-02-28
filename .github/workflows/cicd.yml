@@ -77,6 +77,6 @@ jobs:
       - name: Docker login
         run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} docker login https://ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
       - name: Pull containers
-        run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} TAG=latest docker compose -f recipe-docker-compose.yml pull
+        run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} TAG=latest PROFILE=staging docker compose -f recipe-docker-compose.yml pull
       - name: Docker compose up
         run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} TAG=latest PROFILE=staging docker compose -f recipe-docker-compose.yml up -d

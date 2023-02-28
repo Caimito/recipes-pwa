@@ -7,4 +7,4 @@ services:
     environment:
       PROFILE: ${PROFILE}
     ports:
-      - 8090:80
+      - 8080:80

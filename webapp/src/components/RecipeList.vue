@@ -4,7 +4,6 @@
     <ul>
       <li v-for="recipe in recipes" :key="recipe.id">
         <router-link :to="{ name: 'Recipe', params: { id: recipe.id } }">{{ recipe.name }}</router-link>
-
       </li>
     </ul>
     <RecipeDisplay :recipe="selectedRecipe" />

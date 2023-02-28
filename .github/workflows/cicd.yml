@@ -38,22 +38,47 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
-      # - name: Prepare Docker Image Tag
-      #   id: prep
-      #   run: echo ::set-output name=docker-image-tag::ghcr.io/caimito/recipe-webapp:candidate
-      # - name: Login to GitHub Container Registry
-      #   uses: docker/login-action@v1
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.repository_owner }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Build Docker Image
-      #   run: docker build -t ${{ steps.prep.outputs.docker-image-tag }} .
-      # - name: Push Docker Image
-      #   run: docker push ${{ steps.prep.outputs.docker-image-tag }}
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      - name: Prepare Docker Image Tag
+        id: prep
+        run: echo ::set-output name=docker-image-tag::ghcr.io/caimito/recipe-webapp:candidate
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: recipes/dist
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Docker Image
+        run: docker build -t ${{ steps.prep.outputs.docker-image-tag }} .
+
+      - name: Tag container as latest
+        if: success()
+        run: docker tag ghcr.io/caimito/recipe-webapp:candidate ghcr.io/caimito/recipe-webapp:latest
+
+
+      - name: Push Docker Image
+        if: success()
+        run: docker push ${{ steps.prep.outputs.docker-image-tag }}
+
+  deploy-staging:
+    if: ${{ success() && github.ref == 'refs/heads/main' }}
+    needs: webapp
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ vars.SSH_HOST_STAGING }} >> ~/.ssh/known_hosts
+      - name: SCP docker compose
+        run: |
+          scp docker-compose.yml ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }}:recipe-docker-compose.yml
+          scp .env ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }}:.env
+      - name: Docker login
+        run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} docker login https://ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+      - name: Pull containers
+        run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} TAG=latest docker compose -f recipe-docker-compose.yml pull
+      - name: Docker compose up
+        run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} TAG=latest PROFILE=staging docker compose -f recipe-docker-compose.yml up -d

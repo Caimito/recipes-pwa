@@ -3,6 +3,11 @@ import HomeView from './views/Home.vue'
 import Recipe from './views/Recipe.vue'
 
 const routes = [
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: HomeView
+  },
   { 
     name: 'Home', 
     path: '/', 

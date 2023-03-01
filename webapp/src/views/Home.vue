@@ -9,7 +9,7 @@
 import RecipeList from '@/components/RecipeList.vue'
 
 export default {
-  name: 'RecipeApp',
+  name: 'HomeView',
   components: {
     RecipeList
   }

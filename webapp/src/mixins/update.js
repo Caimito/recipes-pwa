@@ -1,5 +1,6 @@
 export default {
   created() {
+    console.log('update mixin created')
     document.addEventListener('swUpdated', this.updateAvailable, { once: true })
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       // We'll also need to add 'refreshing' to our data originally set to false.
@@ -15,6 +16,7 @@ export default {
     },
 
     refreshApp() {
+      console.log('refreshApp')
       this.updateExists = false
       // Make sure we only send a 'skip waiting' message if the SW is waiting
       if (!this.registration || !this.registration.waiting) return

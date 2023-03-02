@@ -22,11 +22,13 @@ export default {
   }),
 
   created() {
+    console.log('created')
     document.addEventListener('swUpdated', this.updateAvailable, { once: true })
   },
 
   methods: {
     updateAvailable(event) {
+      console.log('updateAvailable')
       this.registration = event.detail
       this.updateExists = true
     }

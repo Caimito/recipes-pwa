@@ -1,6 +1,6 @@
 <template>
   <h1>Recipe App</h1>
-  <p>A future place for something awesome. New version might be available</p>
+  <p>A future place for something awesome. Sometimes there is an update</p>
   <p>List:</p>
   <RecipeList />
 </template>

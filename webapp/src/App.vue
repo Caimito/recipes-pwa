@@ -1,6 +1,6 @@
 <template>
   <p v-if="updateExists">
-    An update is available
+    An update is available and can be installed by clicking the button below.
     <button @click="refreshApp"> Update </button>
   </p>
 

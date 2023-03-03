@@ -1,0 +1,27 @@
+BUTTON {
+  background-color: rgb(161, 253, 170);
+  border-color: lightgray;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  font-weight: bold;
+}
+
+DIV.recipe-toolbar {
+  background-color: rgb(245, 245, 245);
+  border-color: lightgray;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+
+UL.recipe-list {
+  border-color: lightgray;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  list-style: none;
+}

@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import '@/assets/css/global.css'
 import update from '@/mixins/update'
 
 export default {

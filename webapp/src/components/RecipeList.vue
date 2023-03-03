@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="addRecipe">Add Recipe</button>
-    <ul>
+    <RecipeToolbar v-on:addRecipe="addRecipe" />
+    <ul class="recipe-list">
       <li v-for="recipe in recipes" :key="recipe.id">
         <router-link :to="{ name: 'Recipe', params: { id: recipe.id } }">{{ recipe.name }}</router-link>
       </li>
@@ -12,12 +12,14 @@
 
 <script>
 import RecipeDisplay from './RecipeDisplay.vue'
+import RecipeToolbar from './RecipeToolbar.vue'
 
 export default {
   name: 'RecipeList',
 
   components: {
-    RecipeDisplay
+    RecipeDisplay,
+    RecipeToolbar
   },
 
   data: () => ({

@@ -1,3 +1,45 @@
+NAV {
+  background-color: rgb(235, 236, 235);
+  margin-bottom: 1em;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  width: 100%;
+  height: 60px;
+}
+
+NAV UL {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+NAV LI {
+  float: left;
+  font-size: 150%;
+  display: inline;
+  text-align: center;
+  line-height: 50px;
+  padding-top: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 0;
+}
+
+NAV li a {
+  text-decoration: none;
+}
+
+NAV IMG.logo {
+  padding-right: 50px
+}
+
+DIV.container {
+  margin-top: 65px;
+}
+
 BUTTON {
   background-color: rgb(161, 253, 170);
   border-color: lightgray;
@@ -24,4 +66,18 @@ UL.recipe-list {
   border-radius: 0.5em;
   padding: 0.5em;
   list-style: none;
+}
+
+FORM {
+  border-color: lightgray;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+FORM INPUT {
+  margin: 0.5em;
 }

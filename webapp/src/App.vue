@@ -1,4 +1,5 @@
 <template>
+  <HeaderComponent />
   <p v-if="updateExists">
     An update is available and can be installed by clicking the button below.
     <button @click="refreshApp"> Update </button>
@@ -10,10 +11,12 @@
 <script>
 import '@/assets/css/global.css'
 import update from '@/mixins/update'
+import HeaderComponent from './components/HeaderComponent.vue'
 
 export default {
   name: 'RecipeApp',
   components: {
+    HeaderComponent
   },
   mixins: [update],
 

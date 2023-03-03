@@ -1,7 +1,9 @@
 <template>
-  <h1>Recipe App</h1>
-  <p>A future place for something awesome.</p>
-  <RecipeList />
+  <div class="container">
+    <h1>Recipe App</h1>
+    <p>A future place for something awesome.</p>
+    <RecipeList />
+  </div>
 </template>
 
 <script>

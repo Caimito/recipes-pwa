@@ -1,17 +1,9 @@
 <template>
   <div class="recipe-toolbar">
-    <button @click="addRecipe">Add Recipe</button>
+    <router-link to="/recipe/new" custom v-slot="{ navigate }">
+      <button @click="navigate" role="link">
+        New Recipe
+      </button>
+    </router-link>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'RecipeToolbar',
-
-  methods: {
-    addRecipe() {
-      this.$emit('addRecipe')
-    }
-  }
-}
-</script>

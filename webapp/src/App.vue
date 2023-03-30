@@ -25,18 +25,18 @@ export default {
     updateExists: false
   }),
 
-  created() {
+  created () {
     console.log('created')
     document.addEventListener('swUpdated', this.updateAvailable, { once: true })
   },
 
   methods: {
-    updateAvailable(event) {
+    updateAvailable (event) {
       console.log('updateAvailable')
       this.registration = event.detail
       this.updateExists = true
     }
-  },
+  }
 
 }
 </script>

@@ -13,7 +13,7 @@ export default {
   name: 'HomeView',
   components: {
     RecipeList
-  },
+  }
 
 }
 </script>

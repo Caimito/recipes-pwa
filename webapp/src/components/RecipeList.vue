@@ -7,10 +7,13 @@
       </li>
     </ul>
     <RecipeDisplay :recipe="selectedRecipe" />
+
+    {{ recipes }}
   </div>
 </template>
 
 <script>
+import db from '@/db'
 import RecipeDisplay from './RecipeDisplay.vue'
 import RecipeToolbar from './RecipeToolbar.vue'
 
@@ -24,31 +27,21 @@ export default {
 
   data: () => ({
     selectedRecipe: {},
-    recipes: [
-      {
-        id: 1,
-        name: 'Pancakes'
-      },
-      {
-        id: 2,
-        name: 'Pizza'
-      },
-      {
-        id: 3,
-        name: 'Spaghetti'
-      }
-    ]
+    recipes: []
   }),
 
+  mounted () {
+    this.loadRecipes()
+  },
+
   methods: {
-    addRecipe() {
-      this.recipes.push({
-        id: this.recipes.length + 1,
-        name: 'New Recipe'
+    loadRecipes () {
+      db.recipes.toArray().then(recipes => {
+        this.recipes = recipes
       })
     },
 
-    selectRecipe(recipe) {
+    selectRecipe (recipe) {
       console.log(recipe)
       this.selectedRecipe = recipe
     }

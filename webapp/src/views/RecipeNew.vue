@@ -15,6 +15,9 @@
 </template>
 
 <script>
+import db from '@/db'
+import { v4 as uuidv4 } from 'uuid'
+
 export default {
   name: 'RecipeNew',
   data: () => ({
@@ -25,15 +28,28 @@ export default {
   }),
 
   methods: {
-    resize() {
-      let element = this.$refs["textarea"]
+    resize () {
+      const element = this.$refs.textarea
 
-      element.style.height = "18px"
-      element.style.height = element.scrollHeight + "px"
+      element.style.height = '18px'
+      element.style.height = element.scrollHeight + 'px'
     },
 
-    saveRecipe() {
+    saveRecipe () {
       console.log('saveRecipe')
+      const recipe = {
+        id: uuidv4(),
+        name: this.name,
+        description: this.description.split('\n'),
+        ingredients: this.ingredients.split('\n'),
+        instructions: this.instructions.split('\n'),
+        created: new Date(),
+        synced: false
+      }
+
+      db.recipes.add(recipe).then(() => {
+        this.$router.push('/recipes')
+      })
     }
   }
 }

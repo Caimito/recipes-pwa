@@ -9,25 +9,25 @@ const routes = [
     name: 'NotFound',
     component: HomeView
   },
-  { 
-    name: 'Home', 
-    path: '/', 
-    component: HomeView 
+  {
+    name: 'Home',
+    path: '/',
+    component: HomeView
   },
-  { 
-    name: 'Recipe', 
-    path: '/recipe/:id', 
-    component: Recipe, 
-    props: true 
+  {
+    name: 'Recipe',
+    path: '/recipe/:id',
+    component: Recipe,
+    props: true
   },
   {
     name: 'NewRecipe',
     path: '/recipe/new',
-    component: RecipeNew,
+    component: RecipeNew
   }
 ]
 
 export const router = createRouter({
   history: createWebHashHistory(),
-  routes, 
+  routes
 })

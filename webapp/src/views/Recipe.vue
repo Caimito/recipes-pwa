@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import db from '@/db'
 import RecipeDisplay from '@/components/RecipeDisplay.vue'
 
 export default {
@@ -19,35 +20,20 @@ export default {
   },
 
   data: () => ({
-    recipe: {},
-    recipes: [
-      {
-        id: 1,
-        name: 'Pancakes',
-        description: 'A delicious breakfast food'
-      },
-      {
-        id: 2,
-        name: 'Pizza',
-        description: 'A delicious lunch food'
-      },
-      {
-        id: 3,
-        name: 'Spaghetti',
-        description: 'A delicious dinner food'
-      }
-    ]
+    recipe: {}
   }),
 
-  beforeMount() {
+  beforeMount () {
     this.loadRecipe()
   },
 
   methods: {
-    loadRecipe() {
+    loadRecipe () {
       const id = this.$route.params.id
 
-      this.recipe = this.recipes.find(recipe => recipe.id == id)
+      db.recipes.get(id).then(recipe => {
+        this.recipe = recipe
+      })
     }
   }
 

@@ -89,7 +89,7 @@ jobs:
 
   deploy-staging:
     if: ${{ success() && github.ref == 'refs/heads/main' }}
-    needs: webapp
+    needs: [webapp, backend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

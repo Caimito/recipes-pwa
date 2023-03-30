@@ -87,7 +87,7 @@ jobs:
 
       - name: Tag container as latest
         if: success()
-        run: docker tag ghcr.io/caimito/recipe-webapp:candidate ghcr.io/caimito/recipe-webapp:latest
+        run: docker tag ghcr.io/caimito/recipe-backend:candidate ghcr.io/caimito/recipe-backend:latest
       - name: Push container
         run: docker push --all-tags ghcr.io/caimito/recipe-backend
 

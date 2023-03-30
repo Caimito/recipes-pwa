@@ -20,7 +20,7 @@ services:
     volumes:
       - mongo-data:/data/db
   recipe-api:
-    image: ghcr.io/caimito/recipe-api:${TAG}
+    image: ghcr.io/caimito/recipe-backend:${TAG}
     restart: unless-stopped
     environment:
       PROFILE: ${PROFILE}

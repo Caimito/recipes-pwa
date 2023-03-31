@@ -36,7 +36,7 @@ export default {
     },
 
     saveRecipe () {
-      console.log('saveRecipe')
+      console.log('saveRecipe WITH STORE')
       const recipe = {
         id: uuidv4(),
         name: this.name,

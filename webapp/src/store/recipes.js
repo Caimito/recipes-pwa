@@ -34,6 +34,7 @@ export const useRecipesStore = defineStore({
       }
     },
     async addRecipe (recipe) {
+      console.log('addRecipe', recipe)
       if (isOnline()) {
         console.log('addRecipe online')
         const response = await fetch('/api/recipes', {

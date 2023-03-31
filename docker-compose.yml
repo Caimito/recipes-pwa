@@ -5,11 +5,13 @@ volumes:
 
 
 services:
-  recipe-webapp:
-    image: ghcr.io/caimito/recipe-webapp:${TAG}
+  recipe-webapp-prod:
+    image: ghcr.io/caimito/recipe-webapp:latest
+    profiles: [ 'prod' ]
     restart: unless-stopped
     environment:
-      PROFILE: ${PROFILE}
+      - PROFILE=production
+      - VUE_APP_API_URL=http://recipe-api-prod:8080
     ports:
       - 8080:80
   mongo:
@@ -19,12 +21,13 @@ services:
       - 27017:27017
     volumes:
       - mongo-data:/data/db
-  recipe-api:
-    image: ghcr.io/caimito/recipe-backend:${TAG}
-    restart: unless-stopped
+  recipe-api-prod:
+    image: ghcr.io/caimito/recipe-backend:latest
+    profiles: [ 'prod' ]
     environment:
-      PROFILE: ${PROFILE}
-      SPRING_DATA_MONGODB_HOST: mongo
+      - PROFILE=production
+      - SPRING_DATA_MONGODB_HOST=mongo
+    restart: unless-stopped
     ports:
       - 8080:8080
     links:

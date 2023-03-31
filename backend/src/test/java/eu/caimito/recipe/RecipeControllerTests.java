@@ -53,7 +53,7 @@ public class RecipeControllerTests {
         List.of("instructions"));
     Recipe recipeSaved = recipeRepository.save(recipe);
 
-    mockMvc.perform(get("/api/recipes/{id}", recipeSaved.getId()))
+    mockMvc.perform(get("/recipes/{id}", recipeSaved.getId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType("application/json"))
         .andExpect(jsonPath("$.id").value(recipeSaved.getId()))
@@ -62,13 +62,13 @@ public class RecipeControllerTests {
 
   @Test
   void getRecipeNotFound() throws Exception {
-    mockMvc.perform(get("/recipe/2"))
+    mockMvc.perform(get("/recipes/2"))
         .andExpect(status().isNotFound());
   }
 
   @Test
   void saveRecipe() throws Exception {
-    mockMvc.perform(post("/api/recipes")
+    mockMvc.perform(post("/recipes")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"name\": \"Pasta Carbonara\"}"))
         .andExpect(status().isCreated())

@@ -27,7 +27,7 @@ public class RecipeRepositoryTest {
 
   @Test
   public void testGetRecipe() throws Exception {
-    Recipe recipe = new Recipe("Pasta Carbonara");
+    Recipe recipe = new Recipe("Pasta Carbonara", "A delicious pasta dish", null, null);
     Recipe recipeSaved = recipeRepository.save(recipe);
 
     Recipe recipeFromDb = recipeRepository.findById(recipeSaved.getId()).orElseThrow();

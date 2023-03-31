@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +49,11 @@ public class RecipeControllerTests {
 
   @Test
   void getRecipe() throws Exception {
-    Recipe recipe = new Recipe("Pasta Carbonara");
+    Recipe recipe = new Recipe("Pasta Carbonara", "A delicious pasta dish", List.of("SOmething"),
+        List.of("instructions"));
     Recipe recipeSaved = recipeRepository.save(recipe);
 
-    mockMvc.perform(get("/recipe/{id}", recipeSaved.getId()))
+    mockMvc.perform(get("/api/recipes/{id}", recipeSaved.getId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType("application/json"))
         .andExpect(jsonPath("$.id").value(recipeSaved.getId()))
@@ -65,7 +68,7 @@ public class RecipeControllerTests {
 
   @Test
   void saveRecipe() throws Exception {
-    mockMvc.perform(post("/recipe")
+    mockMvc.perform(post("/api/recipes")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"name\": \"Pasta Carbonara\"}"))
         .andExpect(status().isCreated())

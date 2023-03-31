@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Recipe App</h1>
-    <p>A future place for something awesome.</p>
+    <p>A future place for something AWESOME.</p>
     <ul>
       <li>API</li>
     </ul>

@@ -3,7 +3,7 @@ import Dexie from 'dexie'
 
 const db = new Dexie('RecipesDB')
 db.version(1).stores({
-  recipes: '++id, name, description, ingredients, instructions, created'
+  recipes: '++id, name, description, ingredients, instructions, created, synced'
 })
 
 function isOnline () {
@@ -24,6 +24,9 @@ export const useRecipesStore = defineStore({
         await db.recipes.bulkAdd(recipes)
         this.recipes = recipes
         console.log('fetchRecipes', recipes)
+
+        // Sync unsynced recipes after fetching from the API
+        await this.syncRecipes()
       } else {
         const recipes = await db.recipes.toArray()
         this.recipes = recipes
@@ -70,6 +73,37 @@ export const useRecipesStore = defineStore({
         await db.recipes.delete(id)
       }
       this.recipes = this.recipes.filter(recipe => recipe.id !== id)
+    },
+    async syncRecipes () {
+      console.log('syncRecipes')
+      if (isOnline()) {
+        // Get unsynced recipes from Dexie
+        const unsyncedRecipes = await db.recipes
+          .filter(recipe => recipe.synced === false)
+          .toArray()
+
+        // Sync each unsynced recipe
+        for (const recipe of unsyncedRecipes) {
+          // Send the recipe to the API
+          const response = await fetch('/api/recipes', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recipe)
+          })
+          const syncedRecipe = await response.json()
+
+          // Update the local storage with the synced recipe
+          await db.recipes.put({ ...syncedRecipe, synced: true })
+
+          // Update the state in the store
+          const index = this.recipes.findIndex((r) => r.id === recipe.id)
+          if (index !== -1) {
+            this.recipes.splice(index, 1, syncedRecipe)
+          }
+        }
+      }
     }
   },
   getters: {

@@ -3,6 +3,7 @@ logging:
   level:
     root: INFO
     eu.caimito: DEBUG
+    org.springframework.web: DEBUG
 
 spring:
   data:

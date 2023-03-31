@@ -2,6 +2,9 @@
   <div class="container">
     <h1>Recipe App</h1>
     <p>A future place for something awesome.</p>
+    <ul>
+      <li>API</li>
+    </ul>
     <RecipeList />
   </div>
 </template>

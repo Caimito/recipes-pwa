@@ -18,7 +18,7 @@ export const useRecipesStore = defineStore({
   actions: {
     async fetchRecipes () {
       if (isOnline()) {
-        const response = await fetch('/api/recipes')
+        const response = await fetch('/recipes/api/recipes')
         const recipes = await response.json()
         await db.recipes.clear()
         await db.recipes.bulkAdd(recipes)
@@ -37,7 +37,7 @@ export const useRecipesStore = defineStore({
       console.log('addRecipe', recipe)
       if (isOnline()) {
         console.log('addRecipe online')
-        const response = await fetch('/api/recipes', {
+        const response = await fetch('/recipes/api/recipes', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ export const useRecipesStore = defineStore({
     },
     async updateRecipe (recipe) {
       if (isOnline()) {
-        await fetch(`/api/recipes/${recipe.id}`, {
+        await fetch(`/recipes/api/recipes/${recipe.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ export const useRecipesStore = defineStore({
     },
     async deleteRecipe (id) {
       if (isOnline()) {
-        await fetch(`/api/recipes/${id}`, {
+        await fetch(`/recipes/api/recipes/${id}`, {
           method: 'DELETE'
         })
         await db.recipes.delete(id)
@@ -90,7 +90,7 @@ export const useRecipesStore = defineStore({
         // Sync each unsynced recipe
         for (const recipe of unsyncedRecipes) {
           // Send the recipe to the API
-          const response = await fetch('/api/recipes', {
+          const response = await fetch('/recipes/api/recipes', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

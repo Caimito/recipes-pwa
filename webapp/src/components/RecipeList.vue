@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import db from '@/db'
+import { useRecipesStore } from '@/store/recipes'
 import RecipeDisplay from './RecipeDisplay.vue'
 import RecipeToolbar from './RecipeToolbar.vue'
 
@@ -26,9 +26,15 @@ export default {
   },
 
   data: () => ({
-    selectedRecipe: {},
-    recipes: []
+    selectedRecipe: {}
   }),
+
+  computed: {
+    recipes () {
+      const recipesStore = useRecipesStore()
+      return recipesStore.getAllRecipes
+    }
+  },
 
   mounted () {
     this.loadRecipes()
@@ -36,9 +42,8 @@ export default {
 
   methods: {
     loadRecipes () {
-      db.recipes.toArray().then(recipes => {
-        this.recipes = recipes
-      })
+      const recipesStore = useRecipesStore()
+      recipesStore.fetchRecipes()
     },
 
     selectRecipe (recipe) {

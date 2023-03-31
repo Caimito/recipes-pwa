@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import db from '@/db'
+import { useRecipesStore } from '@/store/recipes'
 import { v4 as uuidv4 } from 'uuid'
 
 export default {
@@ -40,14 +40,15 @@ export default {
       const recipe = {
         id: uuidv4(),
         name: this.name,
-        description: this.description.split('\n'),
+        description: this.description,
         ingredients: this.ingredients.split('\n'),
         instructions: this.instructions.split('\n'),
         created: new Date(),
         synced: false
       }
 
-      db.recipes.add(recipe).then(() => {
+      const recipesStore = useRecipesStore()
+      recipesStore.addRecipe(recipe).then(() => {
         this.$router.push('/recipes')
       })
     }

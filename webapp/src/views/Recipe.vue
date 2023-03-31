@@ -1,9 +1,11 @@
 <template>
-  <RecipeDisplay :recipe="recipe" />
+  <div class="container">
+    <RecipeDisplay v-if="recipe" :recipe="recipe" />
+  </div>
 </template>
 
 <script>
-import db from '@/db'
+import { useRecipesStore } from '@/store/recipes'
 import RecipeDisplay from '@/components/RecipeDisplay.vue'
 
 export default {
@@ -19,22 +21,16 @@ export default {
     }
   },
 
-  data: () => ({
-    recipe: {}
-  }),
-
-  beforeMount () {
-    this.loadRecipe()
+  computed: {
+    recipe () {
+      const recipesStore = useRecipesStore()
+      return recipesStore.getRecipeById(this.id)
+    }
   },
 
-  methods: {
-    loadRecipe () {
-      const id = this.$route.params.id
-
-      db.recipes.get(id).then(recipe => {
-        this.recipe = recipe
-      })
-    }
+  beforeMount () {
+    const recipesStore = useRecipesStore()
+    recipesStore.fetchRecipes()
   }
 
 }

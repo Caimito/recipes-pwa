@@ -1,6 +1,7 @@
 package eu.caimito.recipe;
 
 import java.net.URI;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/recipe")
+@RequestMapping("/api/recipes")
 public class RecipeController {
 
   @Autowired
   private RecipeRepository recipeRepository;
+
+  @GetMapping
+  public ResponseEntity<List<Recipe>> getRecipes() {
+    return ResponseEntity.ok(recipeRepository.findAll());
+  }
 
   @GetMapping("/{id}")
   public ResponseEntity<Recipe> getRecipe(@PathVariable("id") String id) {

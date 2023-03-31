@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>{{ recipe }}</p>
     <h1>{{ recipe.name }}</h1>
     <p>{{ recipe.description }}</p>
     <p>{{ recipe.instructions }}</p>

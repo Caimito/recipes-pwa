@@ -111,4 +111,4 @@ jobs:
       - name: Pull containers
         run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} docker compose -f recipe-docker-compose.yml pull
       - name: Docker compose up
-        run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} docker compose --profile prod -f recipe-docker-compose.yml up -d
+        run: ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST_STAGING }} docker compose --profile prod -f recipe-docker-compose.yml --remove-orphans up -d

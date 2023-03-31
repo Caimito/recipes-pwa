@@ -20,5 +20,6 @@ window.addEventListener('online', () => {
 })
 
 window.addEventListener('offline', () => {
+  console.log('offline')
   // Handle offline mode
 })

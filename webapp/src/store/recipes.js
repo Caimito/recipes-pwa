@@ -28,12 +28,14 @@ export const useRecipesStore = defineStore({
         // Sync unsynced recipes after fetching from the API
         await this.syncRecipes()
       } else {
+        console.log('fetchRecipes offline')
         const recipes = await db.recipes.toArray()
         this.recipes = recipes
       }
     },
     async addRecipe (recipe) {
       if (isOnline()) {
+        console.log('addRecipe online')
         const response = await fetch('/api/recipes', {
           method: 'POST',
           headers: {
@@ -45,6 +47,7 @@ export const useRecipesStore = defineStore({
         await db.recipes.put(newRecipe)
         this.recipes.push(newRecipe)
       } else {
+        console.log('addRecipe offline')
         const id = await db.recipes.add(recipe)
         this.recipes.push({ ...recipe, id })
       }
@@ -77,6 +80,7 @@ export const useRecipesStore = defineStore({
     async syncRecipes () {
       console.log('syncRecipes')
       if (isOnline()) {
+        console.log('syncRecipes online')
         // Get unsynced recipes from Dexie
         const unsyncedRecipes = await db.recipes
           .filter(recipe => recipe.synced === false)

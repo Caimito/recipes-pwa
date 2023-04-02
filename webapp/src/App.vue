@@ -1,11 +1,13 @@
 <template>
   <HeaderComponent />
-  <p v-if="updateExists">
-    An update is available and can be installed by clicking the button below.
-    <button @click="refreshApp"> Update </button>
-  </p>
+  <div class="container">
+    <p v-if="updateExists">
+      An update is available and can be installed by clicking the button below.
+      <button @click="refreshApp"> Update </button>
+    </p>
 
-  <router-view />
+    <router-view />
+  </div>
 </template>
 
 <script>

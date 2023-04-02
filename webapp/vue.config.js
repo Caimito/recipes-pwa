@@ -5,12 +5,18 @@ module.exports = defineConfig({
   devServer: {
     port: 9090,
     proxy: {
-      '^/api/': {
+      '^/recipes/api/': {
         target: 'http://localhost:8080',
         headers: { host: 'localhost:8080' },
         changeOrigin: true,
         secure: false,
-        logLevel: 'debug'
+        logLevel: 'debug',
+        onProxyReq: (proxyReq, req, res) => {
+          console.log(`[PROXY] ${req.method} ${req.url} => ${proxyReq.getHeader('host')}${proxyReq.path}`)
+        },
+        pathRewrite: {
+          '^/recipes/api': '' // Remove '/recipes' from the request path
+        }
       }
     }
   },

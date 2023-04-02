@@ -13,6 +13,7 @@ export function subscribeUser () {
   console.log('subscribeUser')
   navigator.serviceWorker.ready
     .then(registration => {
+      console.log('navigator.serviceWorker.ready')
       return registration.pushManager.getSubscription()
     })
     .then(existingSubscription => {
@@ -48,6 +49,9 @@ export function subscribeUser () {
             console.error('Error while subscribing for push notifications:', error)
           })
       }
+    })
+    .catch(error => {
+      console.error('Error while subscribing for push notifications:', error)
     })
 }
 

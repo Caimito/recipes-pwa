@@ -6,7 +6,7 @@
       <button @click="unsubscribe">Unsubscribe</button>
       <button @click="sendNotification">Notify</button>
     </div>
-    <p>A future place for something AWESOME.</p>
+    <p>A future place for something real awesome.</p>
     <ul>
       <li>API</li>
     </ul>

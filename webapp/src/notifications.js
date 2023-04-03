@@ -7,7 +7,7 @@
 //   }
 // })
 
-const vapidPublicKey = 'BPTF1s1q8g9Cb8Skg0OncKEJ__0rznBVFrxF8pjE5GxW-xC6Z9TeNHIDZcGyu8QkFKHdzsUzs92q7DGoEoTbtf8'
+const vapidPublicKey = 'BPl11OKqblKvjFJUIgpjN0edr9Z5Zdab0-n9CoBu0mrcl3MGQ-UkeypWA0VXDJTAsHi7SfJE5Ps27T58oQbw0_8='
 
 export function subscribeUser () {
   console.log('subscribeUser')

@@ -1,16 +1,13 @@
 <template>
   <div class="container">
     <h1>Recipe App</h1>
+    <RecipeList />
     <div>
+      <button @click="askForPermission">Ask for Permission</button>
       <button @click="subscribe">Subscribe</button>
       <button @click="unsubscribe">Unsubscribe</button>
       <button @click="sendNotification">Notify</button>
     </div>
-    <p>A future place for something real awesome.</p>
-    <ul>
-      <li>API</li>
-    </ul>
-    <RecipeList />
   </div>
 </template>
 
@@ -25,6 +22,16 @@ export default {
   },
 
   methods: {
+    askForPermission () {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('Notification permission granted.')
+        } else {
+          console.error('Notification permission denied.')
+        }
+      })
+    },
+
     subscribe () {
       console.log('subscribe')
       subscribeUser()

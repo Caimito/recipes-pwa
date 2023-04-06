@@ -7,8 +7,6 @@
       </li>
     </ul>
     <RecipeDisplay :recipe="selectedRecipe" />
-
-    {{ recipes }}
   </div>
 </template>
 
